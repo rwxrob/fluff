@@ -1,0 +1,3 @@
+# Fluff, Local cloud-init VMware VMs
+
+Future home of ...
