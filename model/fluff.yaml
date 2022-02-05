@@ -1,18 +1,17 @@
----
-
 # ----------------------------- machines -----------------------------
 
 machines:
-  - name: alma8.server 
-    cores: 2
-    memory: 2048
-    volumes:
-      - size: 100 
-    url: |
-      https://repo.almalinux.org/almalinux/8/cloud/x86_64/images/AlmaLinux-8-GenericCloud-8.5-20211119.x86_64.qcow2
-  - name: alma8.node
-    base: alma8.server
-    cores: 1
+- name: alma8.server
+  cores: 2
+  memory: 2048
+  volumes:
+    - size: 100 
+  url: |
+    https://repo.almalinux.org/almalinux/8/cloud/x86_64/images/AlmaLinux-8-GenericCloud-8.5-20211119.x86_64.qcow2
+
+- name: alma8.node:
+  base: alma8.server
+  cores: 1
 
 # ------------------------------ clouds ------------------------------
 
@@ -26,13 +25,12 @@ clouds:
     basic endpoint architecture and applications such as Kubernetes
     installed with kubeadm. Default IPs: 192.168.132.10-13.
   instances:
-    - name: control
-      base: alma8.server 
-      ip: 192.168.132.10
-  group:
-    - name: node           # node-1, node-2, node-3
-      base: alma8.node
-      count: 3
-      startip: 192.168.132.11
+  - name: control              # control
+    machine: alma8.server 
+    address: 192.168.132.10
+  - name: node                 # node-1, node-2, node-3
+    machine: alma8.node
+    address: 192.168.132.20    # .20, .21, .22
+    count: 3
 
 # end default cloud
