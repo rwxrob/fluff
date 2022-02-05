@@ -19,5 +19,7 @@ func init() {
     * Fore-knowledge of static IPs required
     * Highly opinionated defaults
     * Batteries included
-    * Simplest CLI possible`
+    * Simplest CLI possible
+
+		`
 }

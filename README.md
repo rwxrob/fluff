@@ -26,6 +26,23 @@ fluff rm   - destroy and delete all of a cloud
 fluff help - display help
 ```
 
+There are a number of hidden commands that are contained within the
+other main commands but can be called individually:
+
+```
+fluff validate [PATH]         - validate a fluff.yaml file
+fluff fetch [URL]             - retrieve and cache distro image
+fluff convert [PATH] [FORMAT] - convert target image to specified format
+fluff iso [PATH]              - create a cloudinit.iso
+fluff volume [MB] [FORMAT]    - create volume file of size and format
+```
+
+And a few debugging hidden commands:
+
+```
+fluff err  - prepare large detailed report of last error
+```
+
 ## Domain Model
 
 **machine** - single instance of a machine with a given *spec*
