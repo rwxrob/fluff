@@ -9,15 +9,3 @@ var DefaultYAML string
 // cloud and machine configuration data (default: fluff.yaml)
 //
 var YAMLFile = "fluff.yaml"
-
-type Manifest struct {
-	Machines []Machine
-	Clouds   []Cloud
-}
-
-type Machine struct{}
-
-type Cloud struct{}
-
-func parseYAML(buf string) {
-}
