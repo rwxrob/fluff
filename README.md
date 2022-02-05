@@ -10,6 +10,12 @@
 * Batteries included
 * Simplest CLI possible
 
+## Installation
+
+```
+go install github.com/rwxrob/fluff@latest
+```
+
 ## Usage
 
 ```
