@@ -1,6 +1,6 @@
 # ☁🏠☁ Fluff, Happy Little Clouds at Home
 
-*"It's docker-compose for cloud-init VMs."
+*"It's docker-compose for cloud-init VMs."*
 
 * Focus *only* on virtual hardware configuration
 * Compliment Ansible for system configuration
@@ -8,7 +8,9 @@
 * Primary support for VMware Workstation Pro
 * Secondary support for VirtualBox
 * Fore-knowledge of static IPs required
+* Cater to absolute beginners
 * Highly opinionated defaults
+* Secure shell into everything
 * Batteries included
 * Simplest CLI possible
 
@@ -37,6 +39,7 @@ fluff fetch [URL]             - retrieve and cache distro image
 fluff convert [PATH] [FORMAT] - convert target image to specified format
 fluff iso [PATH]              - create a cloudinit.iso
 fluff volume [MB] [FORMAT]    - create volume file of size and format
+fluff ssh-config [INSTANCE]   - output ~/.ssh/config Host for instance
 ```
 
 And a few debugging hidden commands:
