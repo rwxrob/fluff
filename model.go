@@ -1,6 +1,10 @@
 package fluff
 
-import _ "embed"
+import (
+	_ "embed"
+
+	"github.com/rwxrob/cmdbox/util"
+)
 
 //go:embed fluff.yaml
 var DefaultYAML string
@@ -9,6 +13,19 @@ var DefaultYAML string
 // cloud and machine configuration data (default: fluff.yaml)
 //
 var YAMLFile = "fluff.yaml"
+
+// Manifest starts out as the parsed DefaultYAML data (which is embedded
+// in the binary) but is then modified by overlaying the local
+// fluff.yaml file.
+//
+var Manifest = new(manifest)
+
+// func init() {
+// 	err := yaml.Unmarshal([]byte(DefaultYAML), Manifest)
+// // 	if err != nil {
+// // 		panic(err)
+// // 	}
+// // }
 
 type provider interface {
 	create(vm instance) error
@@ -23,9 +40,11 @@ type provider interface {
 // struct used for marshalling and unmarshalling fluff.yaml files.
 //
 type manifest struct {
-	Machines []machine `json:"machines,omitempty"`
-	Clouds   []cloud   `json:"uds,omitempty"`
+	Machines []machine `json:"machines"`
+	Clouds   []cloud   `json:"clouds"`
 }
+
+func (m manifest) String() string { return util.ToYAML(m) }
 
 // Machine represents a single virtual machine with all of its
 // virtualized hardware, network configuration, and a single
@@ -33,20 +52,21 @@ type manifest struct {
 // specified within a cloud of a specific Machine configuration.
 //
 type machine struct {
-	Name    string   `json:"name,omitempty"`    // local unique, dotted
-	Cores   int      `json:"cores,omitempty"`   // not CPUs
-	Memory  int      `json:"memory,omitempty"`  // megabytes
-	Volumes []volume `json:"volumes,omitempty"` // disk files
-	URL     string   `json:"url,omitempty"`     // curl-able
+	Name    string   `json:"name"`    // local unique, dotted
+	Cores   int      `json:"cores"`   // not CPUs
+	Memory  int      `json:"memory"`  // megabytes
+	Volumes []volume `json:"volumes"` // storage volumes
+	URL     string   `json:"url"`     // curl-able
+	Base    string   `json:"base"`    // overlay and existing machine
 }
 
-// Volume represents a single virtual disk volume file to be created and
-// optionally mounted at the specified location.
-//
+func (m machine) String() string { return util.ToYAML(m) }
+
 type volume struct {
-	Size  int    `json:"size,omitempty"`  // megabytes
-	Mount string `json:"mount,omitempty"` // mount point (/s)
+	Size int `json:"size"` // megabytes
 }
+
+func (m volume) String() string { return util.ToYAML(m) }
 
 // Cloud represents a single collection of machines that provide
 // a particular flavor of infrastructure on which to build systems,
@@ -54,17 +74,22 @@ type volume struct {
 // applications (like Kubernetes from kubeadm).
 //
 type cloud struct {
-	Name        string     `json:"name,omitempty"`        // ascii + .
-	Description string     `json:"description,omitempty"` // unlimited
-	Instances   []instance `json:"instances,omitempty"`   // see Instance
+	Name      string     `json:"name"`      // ascii + .
+	Summary   string     `json:"summary"`   // description
+	Instances []instance `json:"instances"` // see Instance
 }
+
+func (m cloud) String() string { return util.ToYAML(m) }
 
 // Instance represents a single specific instance of a Machine with
 // a set of specific parameters that are unique to each (IP, name, etc.)
 //
 type instance struct {
-	Name    string `json:"name,omitempty"`    // becomes hostname
-	Machine string `json:"machine,omitempty"` // Machine.Name
-	Address string `json:"address,omitempty"` // (starting) IP address
-	Count   int    `json:"count,omitempty"`   // default 1, 250 max
+	Name    string `json:"name"`    // becomes hostname
+	Summary string `json:"summary"` // description
+	Machine string `json:"machine"` // Machine.Name
+	Address string `json:"address"` // (starting) IP address
+	Count   int    `json:"count"`   // default 1, 250 max
 }
+
+func (m instance) String() string { return util.ToYAML(m) }
