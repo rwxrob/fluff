@@ -24,17 +24,15 @@ var StartDefaultCloud = `# default cloud`
 var EndDefaultCloud = `# end default cloud`
 
 func init() {
-	x := cmdbox.Add("init", "simple", "full")
+	x := cmdbox.Add("init")
 	x.Params = []string{"simple", "full"}
-	x.Summary = `initialize a default YAML file (` +
-		model.YAMLFile + `)`
+	x.Summary = `initialize a default YAML file (` + model.YAMLFile + `)`
 	x.Usage = `[simple|full]`
 	x.Description = `
-		Creates a ` + model.YAMLFile + ` file with documented defaults
-		suitable for configuring a fluff cloud. Pass the "full" argument if
-		you wish every single default configuration with documentation
-		(including the list of available machine types and sources).`
-
+	  Creates a ` + model.YAMLFile + ` file with documented defaults
+	  suitable for configuring a fluff cloud. Pass the "full" argument if
+	  you wish every single default configuration with documentation
+	  (including the list of available machine types and sources).`
 	x.Method = func(args []string) error {
 		if util.Found(model.YAMLFile) {
 			return fmt.Errorf(

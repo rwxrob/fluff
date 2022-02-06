@@ -16,7 +16,10 @@ func Test_init_full(t *testing.T) {
 	got, _ := os.ReadFile(model.YAMLFile)
 	want, _ := os.ReadFile("testdata/init_full.yaml")
 	if string(got) != string(want) {
+		t.Log("################## GOT #####################")
 		t.Log(string(got))
+		t.Log("################## WANT ####################")
+		t.Log(string(want))
 		t.Fail()
 	}
 }
@@ -29,7 +32,10 @@ func Test_init_simple(t *testing.T) {
 	got, _ := os.ReadFile(model.YAMLFile)
 	want, _ := os.ReadFile("testdata/init_simple.yaml")
 	if string(got) != string(want) {
+		t.Log("################## GOT #####################")
 		t.Log(string(got))
+		t.Log("################## WANT ####################")
+		t.Log(string(want))
 		t.Fail()
 	}
 }
