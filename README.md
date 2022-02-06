@@ -48,10 +48,11 @@ And a few debugging hidden commands:
 fluff err  - prepare large detailed report of last error
 ```
 
-## Domain Model
+## Domain Model and Terminology
 
-**machine** - single instance of a machine with a given *spec*
-**cloud** - a collection of *machines*
+**machine** - specification of a virtual machine
+**instance** - a specific instance of a configured virtual machine  
+**cloud** - a collection of *instances*
 
 ## Machine (Box) Specification Types
 
@@ -99,10 +100,6 @@ clouds:
 * Experimenting and testing any cloud-init enabled virtual machine image
 * Simulate specific, real-world networks and traffic within them
   including boding of interfaces, etc.
-
-## Networking
-
-The `base.ip` value is incremented by one for each machine in a `group`.
 
 ## YAML Configuration Files
 
