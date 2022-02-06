@@ -44,7 +44,7 @@ type machine struct {
 // optionally mounted at the specified location.
 //
 type volume struct {
-	Size  int    `json:"mb,omitempty"`    // megabytes
+	Size  int    `json:"size,omitempty"`  // megabytes
 	Mount string `json:"mount,omitempty"` // mount point (/s)
 }
 
