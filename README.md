@@ -1,5 +1,7 @@
 # ☁🏠☁ Fluff, Happy Little Clouds at Home
 
+*"It's docker-compose for cloud-init VMs."
+
 * Focus *only* on virtual hardware configuration
 * Compliment Ansible for system configuration
 * Only allow cloud-init images
