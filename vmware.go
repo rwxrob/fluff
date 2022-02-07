@@ -9,10 +9,9 @@ type vmwareProvider struct {
 	vdiskmanager string
 }
 
-// should always find the run binaries
-func (p *vmwareProvider) detect() bool {
+func (p *vmwareProvider) findExecutables() bool {
 
-	// first, look for windows specific exes in the common path
+	// look for windows specific exes in the PATH
 
 	if exe, _ := exec.LookPath("vmrun.exe"); len(exe) > 0 {
 		p.vmrun = exe
@@ -20,6 +19,12 @@ func (p *vmwareProvider) detect() bool {
 	if exe, _ := exec.LookPath("vmware-vdiskmanager.exe"); len(exe) > 0 {
 		p.vdiskmanager = exe
 	}
+
+	if p.vmrun != "" && p.vdiskmanager != "" {
+		return true
+	}
+
+	// look for specific known paths that are not in PATH
 
 	// look for windows wsl2 in the usual locations
 	// /mnt/c/Program Files (x86)/VMware/VMware Workstation/vmrun.exe
@@ -38,11 +43,10 @@ func (p *vmwareProvider) detect() bool {
 
 	// try linux expected locations for arch
 
-	if vmrun != "" && vmdiskmanager != "" {
-		return true
-	}
 	return false
 }
+
+func (p *vmwareProvider) detect() bool { return p.findExecutables() }
 
 // TODO implement these
 func (p *vmwareProvider) create(i instance) error   { return nil }
