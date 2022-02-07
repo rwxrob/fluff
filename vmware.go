@@ -1,12 +1,16 @@
 package fluff
 
-import "os/exec"
+import (
+	"os/exec"
+)
 
 var vmware = new(vmwareProvider)
 
 type vmwareProvider struct {
 	vmrun        string
 	vdiskmanager string
+	mkisofs      string
+	qemuimg      string
 }
 
 func (p *vmwareProvider) findExecutables() bool {
@@ -19,8 +23,14 @@ func (p *vmwareProvider) findExecutables() bool {
 	if exe, _ := exec.LookPath("vmware-vdiskmanager.exe"); len(exe) > 0 {
 		p.vdiskmanager = exe
 	}
+	if exe, _ := exec.LookPath("mkisofs.exe"); len(exe) > 0 {
+		p.mkisofs = exe
+	}
+	if exe, _ := exec.LookPath("qemu-img.exe"); len(exe) > 0 {
+		p.qemuimg = exe
+	}
 
-	if p.vmrun != "" && p.vdiskmanager != "" {
+	if p.vmrun != "" && p.vdiskmanager != "" && p.mkisofs != "" && p.qemuimg != "" {
 		return true
 	}
 

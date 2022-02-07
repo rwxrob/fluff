@@ -16,6 +16,31 @@
 
 ## Installation
 
+1. Install a terminal (Windows Terminal, iTerm2, etc.)
+1. Install VMware Workstation Pro (recommended) or VirtualBox
+1. Install `qemu-img`
+1. Install `fluff` binary
+
+First, you'll need to install a good terminal to make best use of your
+home local cloud virtual machines so that you can connect to them from
+`ssh` (which is installed by default on all major desktop operating
+systems these days).
+
+Second, install one of the following industry standard desktop
+virtualization applications:
+
+* VMware Workstation Pro
+* Oracle VirtualBox
+
+Third, install `qemu-img` depending on your operating system. This
+allows `fluff` to convert between virtual machine images designed for
+the cloud (`qcow2`) into images that work with VMware (`vmdk`) or
+VirtualBox (`vdi`). (This application also has different licensing
+requiring it to be installed separately.)
+
+And finally, install the `fluff` binary using any of the following
+methods:
+
 ```
 go install github.com/rwxrob/fluff@latest
 ```
@@ -24,9 +49,10 @@ go install github.com/rwxrob/fluff@latest
 
 ```
 fluff init - create a starter fluff.yaml file
-fluff up   - start a cloud from the fluff.yaml file, init if not found
-fluff down - stop the cloud VMs and save their state
-fluff rm   - destroy and delete all of a cloud
+fluff up   - start a local cloud, apply fluff.yaml if found
+fluff down - stop local cloud VMs and save their state
+fluff out  - destroy and delete all local cloud VMs
+fluff snap - take a snapshot of all local cloud VMs
 fluff help - display help
 ```
 

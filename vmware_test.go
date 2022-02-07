@@ -2,7 +2,6 @@ package fluff
 
 import (
 	"fmt"
-	"log"
 	"os"
 )
 
@@ -17,8 +16,11 @@ func ExampleVMware() {
 		return
 	}
 
+	// make sure you have all the required executables
+	// before running this test
+
 	fmt.Println(vmware.detect())
-	log.Println()
+
 	// Output:
 	// true
 }
