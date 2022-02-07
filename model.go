@@ -1,18 +1,9 @@
 package fluff
 
 import (
-	_ "embed"
-
 	"github.com/rwxrob/cmdbox/util"
+	"gopkg.in/yaml.v2"
 )
-
-//go:embed fluff.yaml
-var DefaultYAML string
-
-// YAMLFile is set to the name of the initialized YAML file containing
-// cloud and machine configuration data (default: fluff.yaml)
-//
-var YAMLFile = "fluff.yaml"
 
 // Manifest starts out as the parsed DefaultYAML data (which is embedded
 // in the binary) but is then modified by overlaying the local
@@ -20,12 +11,12 @@ var YAMLFile = "fluff.yaml"
 //
 var Manifest = new(manifest)
 
-// func init() {
-// 	err := yaml.Unmarshal([]byte(DefaultYAML), Manifest)
-// // 	if err != nil {
-// // 		panic(err)
-// // 	}
-// // }
+func init() {
+	err := yaml.Unmarshal([]byte(DefaultYAML), Manifest)
+	if err != nil {
+		panic(err)
+	}
+}
 
 type provider interface {
 	create(vm instance) error

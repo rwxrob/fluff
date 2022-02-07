@@ -28,9 +28,7 @@ func Example_volume() {
 
 	// Output:
 	// 1024
-	// /s
 	// 2048
-	// /m
 
 }
 
@@ -90,9 +88,7 @@ cores: 2
 memory: 2048
 volumes:
 - size: 10
-  mount: /s
 - size: 20
-  mount: /m
 url: https://repo.almalinux.org/almalinux/8/cloud/x86_64/images/AlmaLinux-8-GenericCloud-8.5-20211119.x86_64.qcow2
 `
 	err := yaml.Unmarshal([]byte(buf), m)
@@ -107,10 +103,9 @@ url: https://repo.almalinux.org/almalinux/8/cloud/x86_64/images/AlmaLinux-8-Gene
 	// memory: 2048
 	// volumes:
 	// - size: 10
-	//   mount: /s
 	// - size: 20
-	//   mount: /m
 	// url: https://repo.almalinux.org/almalinux/8/cloud/x86_64/images/AlmaLinux-8-GenericCloud-8.5-20211119.x86_64.qcow2
+	// base: ""
 
 }
 
