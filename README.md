@@ -2,24 +2,29 @@
 
 *"It's docker-compose for cloud-init VMs."*
 
+* Support VMware Workstation Pro and VirtualBox
 * Focus *only* on virtual hardware configuration
 * Compliment Ansible for system configuration
-* Only allow cloud-init images
-* Primary support for VMware Workstation Pro
-* Secondary support for VirtualBox
-* Fore-knowledge of static IPs required
-* Cater to absolute beginners
+* Cater to absolute beginners as well as pros
+* Simplest possible CLI with optional web UI
 * Highly opinionated defaults
+* Only allow cloud-init images
+* Static IP network support only
 * Secure shell into everything
 * Batteries included
-* Simplest CLI possible
 
 ## Installation
+
+Fluff is designed to be run from any Windows or Mac workstation
+without any prerequisites other than the following:
 
 1. Install a terminal (Windows Terminal, iTerm2, etc.)
 1. Install VMware Workstation Pro (recommended) or VirtualBox
 1. Install `qemu-img`
 1. Install `fluff` binary
+
+> ⚠️
+> Note Windows users do *not* need to setup WSL2 but it won't hurt.
 
 First, you'll need to install a good terminal to make best use of your
 home local cloud virtual machines so that you can connect to them from
@@ -29,7 +34,7 @@ systems these days).
 Second, install one of the following industry standard desktop
 virtualization applications:
 
-* VMware Workstation Pro
+* VMware Workstation Pro (recommended)
 * Oracle VirtualBox
 
 Third, install `qemu-img` depending on your operating system. This
@@ -41,8 +46,16 @@ requiring it to be installed separately.)
 And finally, install the `fluff` binary using any of the following
 methods:
 
+If you have Go already installed:
+
 ```
 go install github.com/rwxrob/fluff@latest
+```
+
+Otherwise, grab the binary for your computer type:
+
+```
+curl ...
 ```
 
 ## Usage
