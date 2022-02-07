@@ -49,10 +49,13 @@ go install github.com/rwxrob/fluff@latest
 
 ```
 fluff init - create a starter fluff.yaml file
+fluff lint - check the fluff.yaml file for syntax and more
 fluff up   - start a local cloud, apply fluff.yaml if found
 fluff down - stop local cloud VMs and save their state
-fluff out  - destroy and delete all local cloud VMs
-fluff snap - take a snapshot of all local cloud VMs
+fluff away - destroy and delete all local cloud VMs
+fluff shot - take a "snapshot" of all local cloud VMs
+fluff list - list all the local cloud VMs with name and IP
+fluff copy - copy all local cloud VMs and config to target 
 fluff help - display help
 ```
 
@@ -72,6 +75,20 @@ And a few debugging hidden commands:
 
 ```
 fluff err  - prepare large detailed report of last error
+```
+
+And a few expected aliases:
+
+```
+fluff start   - up
+fluff stop    - down
+fluff off     - down
+fluff vet     - lint
+fluff destroy - away
+fluff rm      - away
+fluff snap    - shot
+fluff ps      - list
+fluff cp      - copy
 ```
 
 ## Domain Model and Terminology
