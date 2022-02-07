@@ -18,6 +18,14 @@ import (
 	"github.com/rwxrob/cmdbox/util"
 )
 
+const (
+	EMOJI_INSTANCE_UP       = '\U000026A1' // ⚡
+	EMOJI_INSTANCE_DOWN     = '\U0001F4A4' // 💤
+	EMOJI_INSTANCE_NOTFOUND = '\U00002753' // ❓
+	EMOJI_CLOUD_UP          = '\U0001F329' // 🌩️
+	EMOJI_CLOUD_DOWN        = '\U00002601' // ☁️
+)
+
 // YAMLFile is set to the name of the initialized YAML file containing
 // cloud and machine configuration data (default: fluff.yaml)
 //

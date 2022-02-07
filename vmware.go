@@ -7,7 +7,10 @@ import (
 	"log"
 	"os/exec"
 	"regexp"
-	"sort"
+	"strconv"
+
+	"github.com/rwxrob/cmdbox/term"
+	"github.com/rwxrob/cmdbox/term/esc"
 )
 
 var vmware = new(vmwareProvider)
@@ -87,18 +90,19 @@ func (p *vmwareProvider) status(i instance) string {
 
 func (p *vmwareProvider) getnames() []string {
 	names := []string{}
+
 	for _, i := range current_cloud.Instances {
 		name := i.Name
 		if i.Count > 1 {
 			for n := 0; n < i.Count; n++ {
-				name = fmt.Sprintf("%v-%v", i.Name, n+1)
+				name = fmt.Sprintf("%v%v", i.Name, n+1)
 				names = append(names, name)
 			}
 			continue
 		}
 		names = append(names, name)
 	}
-	sort.Strings(names)
+
 	return names
 }
 
@@ -129,13 +133,48 @@ func (p *vmwareProvider) getstatuses() (map[string]string, error) {
 }
 
 func (p *vmwareProvider) list() error {
-	names := p.getnames()
+	out := ""
+	cloudon := "down"
+	cloudemoji := EMOJI_CLOUD_DOWN
 	statuses, err := p.getstatuses()
 	if err != nil {
 		return err
 	}
-	for _, name := range names {
-		fmt.Printf("%v %v\n", name, statuses[name])
+	for _, i := range current_cloud.Instances {
+		if term.IsTerminal() {
+			var emoji rune
+			var color string
+			status := statuses[i.Name]
+			switch status {
+			case "up":
+				color = esc.Green + esc.Bold
+				emoji = EMOJI_INSTANCE_UP
+				cloudon = "up"
+				cloudemoji = EMOJI_CLOUD_UP
+			case "down":
+				color = esc.Yellow + esc.Bold
+				emoji = EMOJI_INSTANCE_DOWN
+			case "notfound":
+				color = esc.Red + esc.Bold
+				emoji = EMOJI_INSTANCE_NOTFOUND
+			}
+			out += fmt.Sprintf("%c %v%"+
+				strconv.Itoa(longestNameLength)+"v%v %v %v\n",
+				emoji, color, i.Name, esc.Reset,
+				i.Address, statuses[i.Name],
+			)
+		} else {
+			out += fmt.Sprintf("%v %v %v\n",
+				i.Name, i.Address, statuses[i.Name])
+		}
 	}
+	if term.IsTerminal() {
+		fmt.Printf("%c%c %v%v%v\n",
+			cloudemoji, cloudemoji, esc.Blue, current_cloud.Name, esc.Reset,
+		)
+	} else {
+		fmt.Printf("%v %v\n", cloudon, current_cloud.Name)
+	}
+	fmt.Print(out)
 	return nil
 }

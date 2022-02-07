@@ -2,6 +2,8 @@ package fluff
 
 import (
 	"fmt"
+	"regexp"
+	"strconv"
 
 	"github.com/rwxrob/cmdbox/util"
 	"gopkg.in/yaml.v2"
@@ -9,6 +11,7 @@ import (
 
 var current_cloud *cloud
 var current_provider provider
+var longestNameLength int
 
 func init() {
 	err := yaml.Unmarshal([]byte(DefaultYAML), Manifest)
@@ -20,6 +23,8 @@ func init() {
 	createCloudIndex()
 	current_cloud = getcloud("default")
 	current_provider = detectProvider()
+	expandInstances()
+	setLongestNameLength()
 }
 
 const (
@@ -36,6 +41,47 @@ type provider interface {
 	snapshot(i instance) error // save a snapshot
 	status(i instance) string  // up, down, "" (indeterminate)
 	list() error               // name and status
+}
+
+var endip = regexp.MustCompile(`(\d+.\d+.\d+\.)(\d+)$`)
+
+func setLongestNameLength() {
+	for _, i := range current_cloud.Instances {
+		length := len(i.Name)
+		if length > longestNameLength {
+			longestNameLength = length
+		}
+	}
+}
+
+func incrementip(ip string, n int) string {
+	m := endip.FindStringSubmatch(ip)
+	if len(m) > 2 {
+		i, err := strconv.Atoi(m[2])
+		if err != nil {
+			return ip
+		}
+		return fmt.Sprintf("%v%v", m[1], i+n)
+	}
+	return ip
+}
+
+func expandInstances() {
+	instances := []instance{}
+	for _, i := range current_cloud.Instances {
+		if i.Count > 1 {
+			for n := 0; n < i.Count; n++ {
+				ni := i
+				ni.Count = 1
+				ni.Address = incrementip(ni.Address, n)
+				ni.Name = fmt.Sprintf("%v%v", ni.Name, n+1)
+				instances = append(instances, ni)
+			}
+			continue
+		}
+		instances = append(instances, i)
+	}
+	current_cloud.Instances = instances
 }
 
 func detectProvider() provider {
