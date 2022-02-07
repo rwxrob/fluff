@@ -45,3 +45,29 @@ func Example_vmware_list() {
 	// some
 }
 */
+
+func Example_vmware_names() {
+	for _, name := range vmware.getnames() {
+		fmt.Println(name)
+	}
+	// Output:
+	// control
+	// node-1
+	// node-2
+	// node-3
+}
+
+func Example_vmware_getstatuses() {
+	statuses, err := vmware.getstatuses()
+	if err != nil {
+		fmt.Println(err)
+	}
+	for name, status := range statuses {
+		fmt.Printf("%v %v\n", name, status)
+	}
+	// Output:
+	// control down
+	// node-1 down
+	// node-2 down
+	// node-3 down
+}

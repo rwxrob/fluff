@@ -10,7 +10,7 @@ func init() {
 
 	// ----------------- fluff command -------------------
 
-	x = cmdbox.Add("fluff", "i|init", "start|u|up")
+	x = cmdbox.Add("fluff", "i|init", "start|u|up", "list")
 	x.Summary = `happy little clouds at home`
 	x.Description = `
 		Create and explore different cloud virtual machine configurations

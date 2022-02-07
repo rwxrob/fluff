@@ -20,6 +20,7 @@ func (p *vboxProvider) destroy(i instance) error  { return nil }
 func (p *vboxProvider) start(i instance) error    { return nil }
 func (p *vboxProvider) stop(i instance) error     { return nil }
 func (p *vboxProvider) snapshot(i instance) error { return nil }
+func (p *vboxProvider) status(i instance) string  { return "down" }
 func (p *vboxProvider) list() error {
 	return nil
 }

@@ -52,12 +52,23 @@ func ExampleInit_bork() {
 	// unexpected arguments: [bork]
 }
 
+func ExampleList() {
+	fluff.List()
+	// Output:
+	// control down
+	// node-1 down
+	// node-2 down
+	// node-3 down
+}
+
+/*
 func ExampleUp_default() {
 	fluff.Up()
 
 	// Output:
-	// control
-	// node-1
-	// node-2
-	// node-3
+	// control up
+	// node-1 up
+	// node-2 up
+	// node-3 up
 }
+*/

@@ -33,8 +33,9 @@ type provider interface {
 	destroy(i instance) error
 	start(i instance) error
 	stop(i instance) error
-	snapshot(i instance) error
-	list() error
+	snapshot(i instance) error // save a snapshot
+	status(i instance) string  // up, down, "" (indeterminate)
+	list() error               // name and status
 }
 
 func detectProvider() provider {
