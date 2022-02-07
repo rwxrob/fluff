@@ -16,7 +16,7 @@ func Example_machines() {
 }
 
 func Example_clouds() {
-	for _, i := range getcloud("basic").Instances {
+	for _, i := range getcloud("default").Instances {
 		fmt.Println(i.Name)
 	}
 	// Output:
@@ -78,7 +78,7 @@ func Example_manifest() {
 	//   url: ""
 	//   base: alma8.server
 	// clouds:
-	// - name: basic
+	// - name: default
 	//   summary: |
 	//     Simple control and three node mini-cloud suitable for testing
 	//     basic endpoint architecture and applications such as Kubernetes
@@ -153,7 +153,7 @@ count: 3 # quorum
 func Example_cloud() {
 	c := new(cloud)
 	buf := `
-name: basic
+name: default
 summary: |
   Simple control and three node mini-cloud suitable for testing
   basic endpoint architecture and applications such as Kubernetes
@@ -177,7 +177,7 @@ instances:
 	fmt.Println(c)
 
 	// Output:
-	// name: basic
+	// name: default
 	// summary: |
 	//   Simple control and three node mini-cloud suitable for testing
 	//   basic endpoint architecture and applications such as Kubernetes

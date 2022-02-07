@@ -1,5 +1,5 @@
  
-- name: basic
+- name: default
   summary: |
     Simple control and three node mini-cloud suitable for testing
     basic endpoint architecture and applications such as Kubernetes

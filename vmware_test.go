@@ -24,3 +24,24 @@ func ExampleVMware() {
 	// Output:
 	// true
 }
+
+/*
+func Example_vmware_create() {
+	i := new(instance)
+	i.Name = "myinstance"
+	i.Machine = "alma8.server"
+	err := vmware.create(i)
+	if err != nil {
+		fmt.Println(err)
+	}
+	// TODO call list and get output, check for myinstance in output
+	// Output:
+	// 2
+}
+
+func Example_vmware_list() {
+
+	// Output:
+	// some
+}
+*/

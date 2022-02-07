@@ -1,6 +1,7 @@
 package fluff
 
 import (
+	"fmt"
 	"os/exec"
 )
 
@@ -58,8 +59,18 @@ func (p *vmwareProvider) findExecutables() bool {
 
 func (p *vmwareProvider) detect() bool { return p.findExecutables() }
 
-func (p *vmwareProvider) create(i instance) error   { return nil }
+func (p *vmwareProvider) create(i instance) error {
+	machine := getmachine(i.Machine)
+	fmt.Println(machine.Name)
+
+	return nil
+}
+
 func (p *vmwareProvider) destroy(i instance) error  { return nil }
 func (p *vmwareProvider) start(i instance) error    { return nil }
 func (p *vmwareProvider) stop(i instance) error     { return nil }
 func (p *vmwareProvider) snapshot(i instance) error { return nil }
+
+func (p *vmwareProvider) list() error {
+	return nil
+}

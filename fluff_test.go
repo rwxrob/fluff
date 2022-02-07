@@ -51,3 +51,13 @@ func ExampleInit_bork() {
 	// Output:
 	// unexpected arguments: [bork]
 }
+
+func ExampleUp_default() {
+	fluff.Up()
+
+	// Output:
+	// control
+	// node-1
+	// node-2
+	// node-3
+}

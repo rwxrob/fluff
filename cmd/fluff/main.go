@@ -10,7 +10,7 @@ func init() {
 
 	// ----------------- fluff command -------------------
 
-	x = cmdbox.Add("fluff", "i|init")
+	x = cmdbox.Add("fluff", "i|init", "start|u|up")
 	x.Summary = `happy little clouds at home`
 	x.Description = `
 		Create and explore different cloud virtual machine configurations
@@ -40,6 +40,29 @@ func init() {
 	  you wish every single default configuration with documentation
 	  (including the list of available machine types and sources).`
 	x.Method = fluff.Init
+
+	// ------------------ up command --------------------
+
+	x = cmdbox.Add("up")
+	x.Summary = `startup a local cloud of virtual machines`
+	x.Usage = `[CLOUD]`
+	x.Description = `
+		Starts up a local cloud of virtual machines using the detected
+		provider and optionally creates them as needed. By default, starts
+		up the "basic" cloud consisting of one "control" and three "node"
+		machines. To specify another cloud configuration pass the name as an
+		optional argument. See the init command for more about how to create
+		custom cloud configurations in the ` + fluff.YAMLFile + `.`
+	x.Method = fluff.Up
+
+	// ----------------- list command -------------------
+
+	x = cmdbox.Add("list")
+	x.Summary = `list names of virtual machines in current local cloud`
+	x.Description = `
+		List and the names of all the virtual machines and whether they are
+		up or down.`
+	x.Method = fluff.List
 
 }
 
