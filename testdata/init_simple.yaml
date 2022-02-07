@@ -1,6 +1,6 @@
  
 - name: basic
-  description: |
+  summary: |
     Simple control and three node mini-cloud suitable for testing
     basic endpoint architecture and applications such as Kubernetes
     installed with kubeadm. Default IPs: 192.168.132.10-13.
@@ -8,6 +8,7 @@
   - name: control              # control
     machine: alma8.server 
     address: 192.168.132.10
+    count: 1
   - name: node                 # node-1, node-2, node-3
     machine: alma8.node
     address: 192.168.132.20    # .20, .21, .22
