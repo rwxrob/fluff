@@ -18,14 +18,6 @@ func init() {
 	}
 }
 
-type provider interface {
-	create(vm instance) error
-	destroy(vm instance) error
-	start(vm instance) error
-	stop(vm instance) error
-	snapshot(vm instance) error
-}
-
 // Manifest represents a full configuration of machines and clouds that
 // combine collections of Machine Instances. This is the top level data
 // struct used for marshalling and unmarshalling fluff.yaml files.
