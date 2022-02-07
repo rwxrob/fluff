@@ -38,12 +38,6 @@ func Example_vmware_create() {
 	// Output:
 	// 2
 }
-
-func Example_vmware_list() {
-
-	// Output:
-	// some
-}
 */
 
 func Example_vmware_names() {
@@ -57,6 +51,9 @@ func Example_vmware_names() {
 	// node-3
 }
 
+/*
+// bring up control and node-1 before running these tests
+
 func Example_vmware_getstatuses() {
 	statuses, err := vmware.getstatuses()
 	if err != nil {
@@ -66,8 +63,21 @@ func Example_vmware_getstatuses() {
 		fmt.Printf("%v %v\n", name, status)
 	}
 	// Output:
-	// control down
-	// node-1 down
+	// control up
+	// node-1 up
+	// node-2 down
+	// node-3 down
+}
+*/
+
+func Example_vmware_list() {
+	err := vmware.list()
+	if err != nil {
+		fmt.Println(err)
+	}
+	// Output:
+	// control up
+	// node-1 up
 	// node-2 down
 	// node-3 down
 }

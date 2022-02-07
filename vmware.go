@@ -1,10 +1,13 @@
 package fluff
 
 import (
+	"bufio"
+	"bytes"
 	"fmt"
 	"log"
 	"os/exec"
-	"strings"
+	"regexp"
+	"sort"
 )
 
 var vmware = new(vmwareProvider)
@@ -95,33 +98,44 @@ func (p *vmwareProvider) getnames() []string {
 		}
 		names = append(names, name)
 	}
+	sort.Strings(names)
 	return names
 }
 
 func (p *vmwareProvider) getstatuses() (map[string]string, error) {
+	names := p.getnames()
+
 	statuses := map[string]string{}
+	for _, name := range names {
+		statuses[name] = "down"
+	}
+
 	out, err := exec.Command(p.vmrun, "list").Output()
 	if err != nil {
 		return nil, err
 	}
-	if strings.HasPrefix(string(out), "Total running VMs: 0") {
-		for _, name := range p.getnames() {
-			statuses[name] = "down"
+
+	scanner := bufio.NewScanner(bytes.NewReader(out))
+	for scanner.Scan() {
+		line := scanner.Text()
+		regx := regexp.MustCompile(`([\w-.]+)\.vmx$`)
+		matches := regx.FindStringSubmatch(line)
+		if len(matches) > 0 {
+			statuses[matches[1]] = "up"
 		}
-		return statuses, nil
 	}
-	// TODO parse the output into status map
-	fmt.Println(string(out))
+
 	return statuses, nil
 }
 
 func (p *vmwareProvider) list() error {
+	names := p.getnames()
 	statuses, err := p.getstatuses()
 	if err != nil {
 		return err
 	}
-	for k, v := range statuses {
-		fmt.Println(k + " " + v)
+	for _, name := range names {
+		fmt.Printf("%v %v\n", name, statuses[name])
 	}
 	return nil
 }
