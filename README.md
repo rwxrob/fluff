@@ -7,21 +7,27 @@
 * Compliment Ansible for system configuration
 * Cater to absolute beginners as well as pros
 * Simplest possible CLI with optional web UI
+* Bridged static IP network support only
 * Highly opinionated defaults
 * Only allow cloud-init images
-* Static IP network support only
 * Secure shell into everything
 * Batteries included
 
+## Prerequisites
+
+Fluff is primarily designed to be run from any modern Windows or Mac
+computer. It will also run from most Linux desktop distros as well:
+
+
 ## Installation
 
-Fluff is designed to be run from any Windows or Mac workstation
-without any prerequisites other than the following:
 
 1. Install a terminal (Windows Terminal, iTerm2, etc.)
 1. Install VMware Workstation Pro (recommended) or VirtualBox
 1. Install `qemu-img`
 1. Install `fluff` binary
+
+Fluff will also run from most Linux 
 
 > ⚠️
 > Note Windows users do *not* need to setup WSL2 but it won't hurt.
@@ -52,7 +58,8 @@ If you have Go already installed:
 go install github.com/rwxrob/fluff@latest
 ```
 
-Otherwise, grab the binary for your computer type:
+Otherwise, grab the binary for your computer and add put it someplace
+your computer will know to run it.
 
 ```
 curl ...
