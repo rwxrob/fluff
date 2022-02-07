@@ -58,7 +58,6 @@ func (p *vmwareProvider) findExecutables() bool {
 
 func (p *vmwareProvider) detect() bool { return p.findExecutables() }
 
-// TODO implement these
 func (p *vmwareProvider) create(i instance) error   { return nil }
 func (p *vmwareProvider) destroy(i instance) error  { return nil }
 func (p *vmwareProvider) start(i instance) error    { return nil }

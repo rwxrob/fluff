@@ -16,6 +16,9 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+	// TODO overlay the local fluff.yaml (if found)
+	createMachineIndex()
+	createCloudIndex()
 }
 
 // Manifest represents a full configuration of machines and clouds that
@@ -28,6 +31,24 @@ type manifest struct {
 }
 
 func (m manifest) String() string { return util.ToYAML(m) }
+
+var machines = map[string]*machine{}
+
+func createMachineIndex() {
+	for n, m := range Manifest.Machines {
+		if m.Name == "" {
+			continue
+		}
+		machines[m.Name] = &Manifest.Machines[n]
+	}
+}
+
+func getmachine(name string) *machine {
+	if v, has := machines[name]; has {
+		return v
+	}
+	return nil
+}
 
 // Machine represents a single virtual machine with all of its
 // virtualized hardware, network configuration, and a single
@@ -50,6 +71,24 @@ type volume struct {
 }
 
 func (m volume) String() string { return util.ToYAML(m) }
+
+var clouds = map[string]*cloud{}
+
+func createCloudIndex() {
+	for n, c := range Manifest.Clouds {
+		if c.Name == "" {
+			continue
+		}
+		clouds[c.Name] = &Manifest.Clouds[n]
+	}
+}
+
+func getcloud(name string) *cloud {
+	if v, has := clouds[name]; has {
+		return v
+	}
+	return nil
+}
 
 // Cloud represents a single collection of machines that provide
 // a particular flavor of infrastructure on which to build systems,

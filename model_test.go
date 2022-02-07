@@ -7,6 +7,23 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+func Example_machines() {
+	fmt.Println(getmachine("alma8.server").Cores)
+	fmt.Println(getmachine("alma8.node").Cores)
+	// Output:
+	// 2
+	// 1
+}
+
+func Example_clouds() {
+	for _, i := range getcloud("basic").Instances {
+		fmt.Println(i.Name)
+	}
+	// Output:
+	// control
+	// node
+}
+
 func Example_volume() {
 	vol := new(volume)
 
