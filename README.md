@@ -7,6 +7,7 @@
 * Compliment Ansible for system configuration
 * Cater to absolute beginners as well as pros
 * Simplest possible CLI with optional web UI
+* Local cloud VMs organized in `$HOME/Fluff`
 * Bridged static IP network support only
 * Highly opinionated defaults
 * Only allow cloud-init images
@@ -67,24 +68,28 @@ curl ...
 
 ## Usage
 
+Here are the main user-facing commands:
+
 ```
-fluff init - create a starter fluff.yaml file
-fluff lint - check the fluff.yaml file for syntax and more
-fluff up   - start a local cloud, apply fluff.yaml if found
+fluff help [COMMAND] - display help
+fluff init           - create a starter fluff.yaml file
+fluff lint           - check the fluff.yaml file for syntax and more
+fluff up [FILE|URL]  - start a local cloud, display description
 fluff down - stop local cloud VMs and save their state
 fluff away - destroy and delete all local cloud VMs
 fluff shot - take a "snapshot" of all local cloud VMs
 fluff list - list all the local cloud VMs with name and IP
 fluff copy - copy all local cloud VMs and config to target 
-fluff help - display help
+fluff home - prints the full path the Fluff home directory
 ```
 
-There are a number of hidden commands that are contained within the
-other main commands but can be called individually:
+There are a number of commands that allow users to do specific things
+that are a part of the other main user commands:
 
 ```
+fluff cache [URL]             - retrieve and cache distro image
+fluff get [FILE|URL|MACHINE]  - fetch a qcow2 image from the Internet
 fluff validate [PATH]         - validate a fluff.yaml file
-fluff fetch [URL]             - retrieve and cache distro image
 fluff convert [PATH] [FORMAT] - convert target image to specified format
 fluff iso [PATH]              - create a cloudinit.iso
 fluff volume [MB] [FORMAT]    - create volume file of size and format

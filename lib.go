@@ -2,6 +2,8 @@ package fluff
 
 import (
 	"fmt"
+	"os"
+	"path/filepath"
 	"regexp"
 	"strconv"
 
@@ -14,7 +16,12 @@ var current_provider provider
 var longestNameLength int
 
 func init() {
-	err := yaml.Unmarshal([]byte(DefaultYAML), Manifest)
+	homedir, err := os.UserCacheDir()
+	if err != nil {
+		panic(err)
+	}
+	Cache = filepath.Join(homedir, "fluff")
+	err = yaml.Unmarshal([]byte(DefaultYAML), Manifest)
 	if err != nil {
 		panic(err)
 	}

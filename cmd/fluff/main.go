@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/rwxrob/cmdbox"
 	"github.com/rwxrob/fluff"
 )
@@ -10,7 +12,7 @@ func init() {
 
 	// ----------------- fluff command -------------------
 
-	x = cmdbox.Add("fluff", "i|init", "start|u|up", "list")
+	x = cmdbox.Add("fluff", "i|init", "start|u|up", "list", "cache")
 	x.Summary = `happy little clouds at home`
 	x.Description = `
 		Create and explore different cloud virtual machine configurations
@@ -63,6 +65,21 @@ func init() {
 		List and the names of all the virtual machines and whether they are
 		up or down.`
 	x.Method = fluff.List
+
+	// ----------------- cache command -------------------
+
+	x = cmdbox.Add("cache")
+	x.Summary = `path to the cache directory of qcow2 images`
+	x.Description = `
+		Displays the full path to the directory location where qcow2 images
+		are cached with "fluff up" and "fluff get". Images can be placed
+		into this directory directly as an alternative to downloading 
+		them.`
+
+	x.Method = func(args ...string) error {
+		fmt.Println(fluff.Cache)
+		return nil
+	}
 
 }
 

@@ -26,6 +26,11 @@ const (
 	EMOJI_CLOUD_DOWN        = '\U00002601' // ☁️
 )
 
+// Cache is the full path to the directory containing all locally
+// cached qcom2, cloud-init enabled images.
+//
+var Cache string
+
 // YAMLFile is set to the name of the initialized YAML file containing
 // cloud and machine configuration data (default: fluff.yaml)
 //
