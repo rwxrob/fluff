@@ -80,15 +80,13 @@ fluff away - destroy and delete all local cloud VMs
 fluff shot - take a "snapshot" of all local cloud VMs
 fluff list - list all the local cloud VMs with name and IP
 fluff copy - copy all local cloud VMs and config to target 
-fluff home - prints the full path the Fluff home directory
 ```
 
-There are a number of commands that allow users to do specific things
-that are a part of the other main user commands:
+There are a number of other (hidden) commands that allow users to do
+specific things that are a part of the other main user commands:
 
 ```
 fluff cache [URL]             - retrieve and cache distro image
-fluff get [FILE|URL|MACHINE]  - fetch a qcow2 image from the Internet
 fluff validate [PATH]         - validate a fluff.yaml file
 fluff convert [PATH] [FORMAT] - convert target image to specified format
 fluff iso [PATH]              - create a cloudinit.iso

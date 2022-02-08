@@ -13,6 +13,8 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
+	"regexp"
 	"strings"
 
 	"github.com/rwxrob/cmdbox/util"
@@ -26,10 +28,10 @@ const (
 	EMOJI_CLOUD_DOWN        = '\U00002601' // ☁️
 )
 
-// Cache is the full path to the directory containing all locally
+// Cached is the full path to the directory containing all locally
 // cached qcom2, cloud-init enabled images.
 //
-var Cache string
+var Cached string
 
 // YAMLFile is set to the name of the initialized YAML file containing
 // cloud and machine configuration data (default: fluff.yaml)
@@ -86,7 +88,7 @@ func Init(args ...string) error {
 // List prints the current local cloud virtual machine instances by name
 // and whether each is up or down.
 //
-func List(args ...string) error { return current_provider.list() }
+func List(none ...string) error { return current_provider.list() }
 
 // Up optionally accepts the name of a single cloud from the default or
 // custom configuration file and concurrently starts up all the VM
@@ -112,4 +114,23 @@ func Up(args ...string) error {
 		}
 	}
 	return nil
+}
+
+// Cache downloads a qcow2 image from the specified URL and saves it
+// into the cache directory (creating it if it does not exist). Fails if
+// the URL does not end in qcow2 or request takes more than 10 minutes.
+//
+func Cache(args ...string) error {
+	if len(args) == 0 {
+		return fmt.Errorf("missing url argument")
+	}
+	if err := os.MkdirAll(Cached, 0700); err != nil {
+		return err
+	}
+	re := regexp.MustCompile(`/([^/]+\.qcow2$)`)
+	m := re.FindStringSubmatch(args[0])
+	if len(m) == 0 {
+		fmt.Errorf("does not appear to be a qcow2 url: %v", args[0])
+	}
+	return util.Fetch(args[0], filepath.Join(Cached, m[1]), 6000)
 }

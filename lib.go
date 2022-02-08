@@ -16,11 +16,11 @@ var current_provider provider
 var longestNameLength int
 
 func init() {
-	homedir, err := os.UserCacheDir()
+	dir, err := os.UserCacheDir()
 	if err != nil {
 		panic(err)
 	}
-	Cache = filepath.Join(homedir, "fluff")
+	Cached = filepath.Join(dir, "fluff")
 	err = yaml.Unmarshal([]byte(DefaultYAML), Manifest)
 	if err != nil {
 		panic(err)

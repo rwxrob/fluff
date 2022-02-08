@@ -12,7 +12,9 @@ func init() {
 
 	// ----------------- fluff command -------------------
 
-	x = cmdbox.Add("fluff", "i|init", "start|u|up", "list", "cache")
+	x = cmdbox.Add("fluff", "i|init", "up", "l|list",
+		"cache", "cached")
+	x.Hidden = []string{"cached", "cache"}
 	x.Summary = `happy little clouds at home`
 	x.Description = `
 		Create and explore different cloud virtual machine configurations
@@ -35,7 +37,6 @@ func init() {
 	x = cmdbox.Add("init")
 	x.Params = []string{"simple", "full"}
 	x.Summary = `initialize a default YAML file (` + fluff.YAMLFile + `)`
-	x.Usage = `[simple|full]`
 	x.Description = `
 	  Creates a ` + fluff.YAMLFile + ` file with documented defaults
 	  suitable for configuring a fluff cloud. Pass the "full" argument if
@@ -66,20 +67,29 @@ func init() {
 		up or down.`
 	x.Method = fluff.List
 
-	// ----------------- cache command -------------------
+	// ----------------- cached command -------------------
 
-	x = cmdbox.Add("cache")
+	x = cmdbox.Add("cached")
 	x.Summary = `path to the cache directory of qcow2 images`
 	x.Description = `
 		Displays the full path to the directory location where qcow2 images
 		are cached with "fluff up" and "fluff get". Images can be placed
 		into this directory directly as an alternative to downloading 
 		them.`
-
 	x.Method = func(args ...string) error {
-		fmt.Println(fluff.Cache)
+		fmt.Println(fluff.Cached)
 		return nil
 	}
+
+	// ----------------- cache command -------------------
+
+	x = cmdbox.Add("cache")
+	x.Summary = `download a qcow2 image into the cache directory`
+	x.Description = `
+		Sometimes you may want to download an image without calling "up" so
+		that it is there when you do. Other times you might just want to be
+		sure you got the whole thing.`
+	x.Method = fluff.Cache
 
 }
 
