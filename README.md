@@ -1,5 +1,20 @@
 # ☁🏠☁ Fluff, Happy Little Clouds at Home
 
+***Update: After reading more about the libvirt project, kcli (python),
+and virt-lightning (also python) projects I'm going to take a break from
+`fluff` at least until the Beginner Boost content is finished and I've
+completed my K8S certificaitons. I've decided all we need for all the
+Boost parts is VirtualBox and the VirtualBox extensions. In fact,
+`fluff` would rob people learning some great little scripting sessions
+to automated their preferred VM cloud configuration. This is also the
+reason free VirtualBox with extensions and Ubuntu server image is a
+no-brainer decision for beginners. Plus, people need to learn about
+making snapshots with VirtualBox and the Vbox* CLI command tools. Also,
+cloud-init is not for beginners. When I return to `fluff` I want to
+rethink the entire thing from a `libvirt` perspective first so that we
+automatically support every single provider rather than a few specific
+ones.***
+
 *"It's docker-compose for cloud-init VMs."*
 
 * Support VMware Workstation Pro and VirtualBox
